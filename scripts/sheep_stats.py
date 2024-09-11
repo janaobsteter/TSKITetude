@@ -10,9 +10,6 @@ import pandas as pd
 import numpy as np
 import sys
 
-from collections import Counter
-from tskitetude import get_project_dir
-
 # %% [markdown]
 # Determine chromosome and file to open
 
@@ -42,7 +39,7 @@ samples_listed_by_breed = [ [s.id for s in sample_nodes if json.loads(ts.populat
 num_populations = ts.num_populations
 breedPairs = [(x, y) for x in range(num_populations) for y in range(num_populations) if x < y]
 
-windows = np.linspace(0, int(ts.sequence_length), num= int(ts.sequence_length) // 100)
+windows = np.linspace(0, int(ts.sequence_length), num= int(ts.sequence_length) // 100_000)
 
 # %% [markdown]
 # Time to most recent common ancestor
@@ -116,4 +113,3 @@ for (i, j), values in zip(breedPairs, divergence):
     divergence_df.iloc[j, i] = values
 
 divergence_df.to_csv("Divergence_" + str(chromosome) + ".csv", index = None) 
-
